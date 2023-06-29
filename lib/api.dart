@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
-           // api calling using getxcontrolller => GetxController
+           // api calling using getxcontrolller => http=>GetxController
 
 class apicall extends StatelessWidget {
   ProductController controller = Get.put(ProductController());
@@ -12,7 +12,7 @@ class apicall extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Center(child: Text("get api use getxController"))),
+        appBar: AppBar(title: Center(child: Text("get api use getxController(http)"))),
         backgroundColor: Colors.grey.shade200,
         body: Obx(() => controller.isLoading.value
             ? Padding(
@@ -45,15 +45,28 @@ class ProductController extends GetxController {
 
   RxBool isLoading = false.obs;
   Product? product;
+  String name="";
+
+  @override
+  void onReady() {
+    // TODO: implement onReady
+    super.onReady();
+    fetchData();
+    name="asfds";
+    print("======$name");
+  }
 
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    fetchData();
+    name="shruti";
+    print("======$name");
   }
 
+
   Future<void> fetchData() async {
+    print("object");
       http.Response response =
           await http.get(Uri.parse('https://dummyjson.com/products'));
 

@@ -1,47 +1,49 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class api2 extends StatelessWidget {
+// api calling using getxcontrolller => getconnect
 
+
+class api2 extends StatelessWidget {
   ProductController controller = Get.put(ProductController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Center(child: Text("get api use getconnect"))),
-        backgroundColor: Colors.grey.shade200,
-        body: Obx(() => controller.isLoading.value
-            ? Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: ListView.builder(
-            itemCount: controller.product!.products!.length ,
-            itemBuilder: (context, index) {
-              return Card(
-                elevation: 20,
-                child: ListTile(
-                    onTap: () {},
-                    leading: CircleAvatar(
-                        backgroundColor: Colors.white,
-                        maxRadius: 20,
-                        child: Image(
-                            fit: BoxFit.fill,
-                            image: NetworkImage(
-                                "${controller.product!.products![index].thumbnail}"))),
-                    title: Text("${controller.product!.products![index].title}"),
-                    subtitle: Text("${controller.product!.products![index].price}/-")),
-              );
-            },
-          ),
-        )
-            : Center(child: CircularProgressIndicator())),
+      appBar: AppBar(title: Center(child: Text("get api use getconnect"))),
+      backgroundColor: Colors.grey.shade200,
+      body: Obx(() => controller.isLoading.value
+          ? Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: ListView.builder(
+                itemCount: controller.product!.products!.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    elevation: 20,
+                    child: ListTile(
+                        onTap: () {},
+                        leading: CircleAvatar(
+                            backgroundColor: Colors.white,
+                            maxRadius: 20,
+                            child: Image(
+                                fit: BoxFit.fill,
+                                image: NetworkImage(
+                                    "${controller.product!.products![index].thumbnail}"))),
+                        title: Text(
+                            "${controller.product!.products![index].title}"),
+                        subtitle: Text(
+                            "${controller.product!.products![index].price}/-")),
+                  );
+                },
+              ),
+            )
+          : Center(child: CircularProgressIndicator())),
     );
   }
 }
 
 class ProductController extends GetxController {
-
   RxBool isLoading = false.obs;
   Product? product;
 
@@ -55,26 +57,18 @@ class ProductController extends GetxController {
   }
 
   void _sendGetRequest() async {
-
-    final response =
-    await _connect.get('https://dummyjson.com/products');
+    final response = await _connect.get('https://dummyjson.com/products');
     // http.Response response =
     // await http.get(Uri.parse('https://dummyjson.com/products'));
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body.toString()}');
 
-
     product = Product.fromJson(response.body);
-    if(product!.products!.isNotEmpty){
+    if (product!.products!.isNotEmpty) {
       isLoading(true);
     }
-
   }
-
-
 }
-
-
 
 class Product {
   List<Products>? products;
@@ -107,6 +101,7 @@ class Product {
     return data;
   }
 }
+
 class Products {
   int? id;
   String? title;
@@ -122,16 +117,16 @@ class Products {
 
   Products(
       {this.id,
-        this.title,
-        this.description,
-        this.price,
-        this.discountPercentage,
-        this.rating,
-        this.stock,
-        this.brand,
-        this.category,
-        this.thumbnail,
-        this.images});
+      this.title,
+      this.description,
+      this.price,
+      this.discountPercentage,
+      this.rating,
+      this.stock,
+      this.brand,
+      this.category,
+      this.thumbnail,
+      this.images});
 
   Products.fromJson(Map<String, dynamic> json) {
     id = json['id'];
