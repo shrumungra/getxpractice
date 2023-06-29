@@ -11,7 +11,7 @@ class first extends StatelessWidget {
     return SafeArea(
         child: Scaffold(
       body: Center(
-        child: Column(children: [
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
           TextButton(onPressed: () {
             Get.to(() => apicall());
 
