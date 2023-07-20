@@ -7,7 +7,7 @@ import 'package:getxpractice/first.dart';
 void main() {
   runApp(GetMaterialApp(
     initialRoute: '/',
-    // unknownRoute: GetPage(name: '/notfound', page: () => UnknownRoutePage()), //like 404 page in we
+    // unknownRoute: GetPage(name: '/notfound', page: () => UnknownRoutePage()), //like 404 page in web
     getPages: [
       GetPage(
         name: '/',
